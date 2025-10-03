@@ -1,10 +1,5 @@
 import gradio as gr
 
-def process_file(file):
-	if file is None:
-		return "Nenhum arquivo enviado."
-	return f"Arquivo recebido: {file.name}"
-
 # Função para chat (simples, apenas ecoa a mensagem)
 def chat_fn(message, history):
 	history = history or []
