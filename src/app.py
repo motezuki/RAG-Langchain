@@ -1,4 +1,6 @@
 import gradio as gr
+from index import process_file
+
 
 # Função para chat (simples, apenas ecoa a mensagem)
 def chat_fn(message, history):
@@ -11,7 +13,7 @@ with gr.Blocks() as demo:
 	gr.Markdown("# RAG with Langchain and Gradio")
 	with gr.Row():
 		with gr.Column():
-			file_input = gr.File(label="Envie um arquivo - RAG")
+			file_input = gr.File(label="Envie um arquivo - RAG", file_types=['*.pdf'])
 			file_output = gr.Textbox(label="Status do arquivo", lines=40)
 			file_btn = gr.Button("Processar arquivo")
 			file_btn.click(process_file, inputs=file_input, outputs=file_output)
