@@ -6,7 +6,7 @@
 	"image": "mcr.microsoft.com/devcontainers/python:3-bookworm",
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {
-          "lfs": "true"
+          "lfs": true
 		}
 	},
 
