@@ -1,0 +1,41 @@
+name: Black Code Formatter Check
+
+on:
+  pull_request:
+    branches:
+      - main
+      - development
+  push:
+    branches:
+      - main
+      - development
+
+jobs:
+  black-check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Install black
+        run: |
+          python -m pip install --upgrade pip
+          pip install black==24.10.0
+      
+      - name: Check code formatting with black
+        run: |
+          PYTHON_FILES=$(git ls-files '*.py')
+          if [ -z "$PYTHON_FILES" ]; then
+            echo "No Python files found to check"
+            exit 0
+          fi
+          black --check --diff $PYTHON_FILES || (echo "Code is not formatted with black. Run 'black .' to format your code." && exit 1)
